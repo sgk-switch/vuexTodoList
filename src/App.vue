@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+       <v-toolbar-title>My TodoList</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn 
+        text
+        @click="openModal()"
+      >
+        新規作成
+      </v-btn>
+
+    </v-app-bar>
+
+    <v-main>
+      <Board :isShow='isShow'/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Board from './components/Board.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    Board,
+  },
+
+  data(){
+    return{
+      isShow: false,
+    }
+  },
+
+  methods:{
+    openModal(){
+      this.isShow = !this.isShow
+    }
+  }
+
+};
+</script>
