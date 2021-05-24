@@ -13,13 +13,31 @@
             placeholder="Add new todo"
           >
           </v-text-field>
-        
-          <input
-            class="mr-5 mb-5" 
-            v-model="deadLine"
-            type="date"
-          > 
-        
+
+          <v-menu
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="deadLine"
+                label="期日"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="deadLine"
+              @input="menu = false"
+            ></v-date-picker>
+          </v-menu>
+
            <v-card-actions
             class="mr-5 mb-5"
            >
@@ -51,7 +69,8 @@
     data(){
         return{
           title:'',
-          deadLine:''
+          deadLine: new Date().toISOString().substr(0, 10),
+          menu: false,
         }
     },
 
